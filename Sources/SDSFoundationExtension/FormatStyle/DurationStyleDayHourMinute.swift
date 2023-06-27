@@ -31,5 +31,5 @@ public struct DurationStyleDayHourMinute: FormatStyle {
 
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension FormatStyle where Self == DurationStyleDayHourMinute {
-    static var dayHourMinute: DurationStyleDayHourMinute { .init() }
+    public static var dayHourMinute: DurationStyleDayHourMinute { .init() }
 }
