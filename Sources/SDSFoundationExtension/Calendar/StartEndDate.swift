@@ -106,8 +106,8 @@ extension DateComponents {
 }
 
 extension Calendar {
-
-    func start(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
+    /// calc start of the given date (with specified granurarity)
+    public func start(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
         let comps = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let keepComps = lastComp.upperUnits
         guard !keepComps.isEmpty else { return nil }
@@ -121,12 +121,13 @@ extension Calendar {
         return self.date(from: newComps)
     }
 
+    /// calc end of the given date (with specified granurarity)
     // end of (2024/01/12, 9:45:15, .second) -> 2024/01/12, 9:45:59
     // end of (2024/01/12, 9:45:15, .minute) -> 2024/01/12, 9:59:59
     // end of (2024/01/12, 9:45:15, .hour) -> 2024/01/12, 23:59:59
     // end of (2024/01/12, 9:45:15, .day) -> 2024/01/31, 23:59:59
     // end of (2024/01/12, 9:45:15, .month) -> 2024/12/31, 23:59:59
-    func end(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
+    public func end(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
         let comps = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let keepComps = lastComp.upperUnits
         guard !keepComps.isEmpty else { return nil }
