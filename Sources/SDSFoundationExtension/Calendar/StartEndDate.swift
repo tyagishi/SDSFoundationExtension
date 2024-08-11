@@ -73,9 +73,9 @@ extension DateComponents {
         case .weekOfYear: return self.weekOfYear
         case .yearForWeekOfYear: return self.yearForWeekOfYear
         case .nanosecond: return self.nanosecond
-        case .dayOfYear:
-            if #available(macOS 15, *) { return self.dayOfYear
-            } else { return nil }
+        //        case .dayOfYear:
+        //            if #available(macOS 15, *) { return self.dayOfYear
+        //            } else { return nil }
         default: return nil
         }
     }
