@@ -107,6 +107,12 @@ extension DateComponents {
 
 extension Calendar {
     /// calc start of the given date (with specified granurarity)
+    /// start of date:
+    /// (2024/01/12, 9:45:15, .second) -> 2024/01/12, 9:45:00
+    /// (2024/01/12, 9:45:15, .minute) -> 2024/01/12, 9:00:00
+    /// (2024/01/12, 9:45:15, .hour) -> 2024/01/12, 00:00:00
+    /// (2024/01/12, 9:45:15, .day) -> 2024/01/01, 00:00:00
+    /// (2024/01/12, 9:45:15, .month) -> 2024/01/01, 00:00:00
     public func start(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
         let comps = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let keepComps = lastComp.upperUnits
@@ -122,11 +128,12 @@ extension Calendar {
     }
 
     /// calc end of the given date (with specified granurarity)
-    // end of (2024/01/12, 9:45:15, .second) -> 2024/01/12, 9:45:59
-    // end of (2024/01/12, 9:45:15, .minute) -> 2024/01/12, 9:59:59
-    // end of (2024/01/12, 9:45:15, .hour) -> 2024/01/12, 23:59:59
-    // end of (2024/01/12, 9:45:15, .day) -> 2024/01/31, 23:59:59
-    // end of (2024/01/12, 9:45:15, .month) -> 2024/12/31, 23:59:59
+    /// end of date
+    /// (2024/01/12, 9:45:15, .second) -> 2024/01/12, 9:45:59
+    /// (2024/01/12, 9:45:15, .minute) -> 2024/01/12, 9:59:59
+    /// (2024/01/12, 9:45:15, .hour) -> 2024/01/12, 23:59:59
+    /// (2024/01/12, 9:45:15, .day) -> 2024/01/31, 23:59:59
+    /// (2024/01/12, 9:45:15, .month) -> 2024/12/31, 23:59:59
     public func end(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
         let comps = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let keepComps = lastComp.upperUnits
