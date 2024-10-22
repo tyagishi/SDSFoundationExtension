@@ -132,7 +132,7 @@ extension Calendar {
         var calcDate: Date? = nil
         Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 0, minute: 0, second: 0, weekday: weekday), matchingPolicy: .nextTime,
                                         direction: .backward,
-                                        using: { (date, bool, stop) in
+                                        using: { (date, _, stop) in
             calcDate = date
             stop = true
         })
@@ -165,7 +165,7 @@ extension Calendar {
         var calcDate: Date? = nil
         Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 23, minute: 59, second: 59, weekday: weekday), matchingPolicy: .nextTime,
                                         direction: .forward,
-                                        using: { (date, bool, stop) in
+                                        using: { (date, _, stop) in
             calcDate = date
             stop = true
         })
