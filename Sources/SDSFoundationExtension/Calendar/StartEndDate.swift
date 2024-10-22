@@ -126,6 +126,18 @@ extension Calendar {
                                       second: keepComps.contains(.second) ? comps.second : comps.firstValue(for: .second))
         return self.date(from: newComps)
     }
+    
+    // weekday comes from DateComponent i.e. 1:Sunday, 2:Monday, ... 7: Saturday
+    public func startOf(weekday: Int, from date: Date) -> Date? {
+        var calcDate: Date? = nil
+        Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 0, minute: 0, second: 0, weekday: weekday), matchingPolicy: .nextTime,
+                                        direction: .backward,
+                                        using: { (date, bool, stop) in
+            calcDate = date
+            stop = true
+        })
+        return calcDate
+    }
 
     /// calc end of the given date (with specified granurarity)
     /// end of date
@@ -146,5 +158,17 @@ extension Calendar {
                                       minute: keepComps.contains(.minute) ? comps.minute : comps.lastValue(for: .minute, in: self),
                                       second: keepComps.contains(.second) ? comps.second : comps.lastValue(for: .second, in: self))
         return self.date(from: newComps)
+    }
+    
+    // weekday comes from DateComponent i.e. 1:Sunday, 2:Monday, ... 7: Saturday
+    public func endOf(weekday: Int, from date: Date) -> Date? {
+        var calcDate: Date? = nil
+        Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 23, minute: 59, second: 59, weekday: weekday), matchingPolicy: .nextTime,
+                                        direction: .forward,
+                                        using: { (date, bool, stop) in
+            calcDate = date
+            stop = true
+        })
+        return calcDate
     }
 }
