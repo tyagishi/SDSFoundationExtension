@@ -128,15 +128,30 @@ extension Calendar {
     }
     
     // weekday comes from DateComponent i.e. 1:Sunday, 2:Monday, ... 7: Saturday
-    public func startOf(weekday: Int, from date: Date) -> Date? {
+    public func startOf(weekday: Int, from date: Date, count: Int = 1) -> Date? {
+        var counter = count
         var calcDate: Date? = nil
         Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 0, minute: 0, second: 0, weekday: weekday), matchingPolicy: .nextTime,
                                         direction: .backward,
                                         using: { (date, _, stop) in
+            counter -= 1
+            if counter > 0 { return }
             calcDate = date
             stop = true
         })
         return calcDate
+    }
+    public func startsOf(weekday: Int, from date: Date, count: Int = 1) -> [Date] {
+        var counter = 0
+        var calcDates: [Date] = []
+        Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 0, minute: 0, second: 0, weekday: weekday), matchingPolicy: .nextTime,
+                                        direction: .backward,
+                                        using: { (date, _, stop) in
+            if let date { calcDates.append(date) }
+            counter += 1
+            if counter == count { stop = true }
+        })
+        return calcDates
     }
 
     /// calc end of the given date (with specified granurarity)
@@ -161,14 +176,29 @@ extension Calendar {
     }
     
     // weekday comes from DateComponent i.e. 1:Sunday, 2:Monday, ... 7: Saturday
-    public func endOf(weekday: Int, from date: Date) -> Date? {
+    public func endOf(weekday: Int, from date: Date, count: Int = 1) -> Date? {
+        var counter = count
         var calcDate: Date? = nil
         Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 23, minute: 59, second: 59, weekday: weekday), matchingPolicy: .nextTime,
                                         direction: .forward,
                                         using: { (date, _, stop) in
+            counter -= 1
+            if counter > 0 { return }
             calcDate = date
             stop = true
         })
         return calcDate
+    }
+    public func endsOf(weekday: Int, from date: Date, count: Int = 1) -> [Date] {
+        var counter = 0
+        var calcDates: [Date] = []
+        Calendar.current.enumerateDates(startingAfter: date, matching: .init(hour: 23, minute: 59, second: 59, weekday: weekday), matchingPolicy: .nextTime,
+                                        direction: .forward,
+                                        using: { (date, _, stop) in
+            if let date { calcDates.append(date) }
+            counter += 1
+            if counter == count { stop = true }
+        })
+        return calcDates
     }
 }

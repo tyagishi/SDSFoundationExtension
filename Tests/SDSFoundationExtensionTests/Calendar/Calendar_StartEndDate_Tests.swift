@@ -40,6 +40,24 @@ final class Calendar_StartEndDate_Tests: XCTestCase {
         XCTAssertEqual(wMStart, refCal.date(from: DateComponents(year: 2024, month: 3, day: 4, hour: 0, minute: 0, second: 0))!)
     }
     
+    func test_starts() async throws {
+        var refCal = Calendar.current
+        refCal.timeZone = try XCTUnwrap(TimeZone(identifier: "JST"))
+        
+        let from = refCal.date(from: DateComponents(year: 2024, month: 3, day: 4, hour: 13, minute: 14, second: 23))!
+        XCTAssertNotNil(from)
+
+        // note: special treatment is needed for weekday handling
+        let wSStarts = refCal.startsOf(weekday: 1, from: from, count: 2) // 2024.Mar.4th is monday, Mar.3rd is sunday
+        XCTAssertEqual(wSStarts.count, 2)
+        XCTAssertEqual(wSStarts[0], refCal.date(from: DateComponents(year: 2024, month: 3, day: 3, hour: 0, minute: 0, second: 0))!)
+        XCTAssertEqual(wSStarts[1], refCal.date(from: DateComponents(year: 2024, month: 2, day:25, hour: 0, minute: 0, second: 0))!)
+        //let wMStart = refCal.start(of: from, matching: .init(hour: 0, minute: 0, second: 0, weekday: 2)) // 2024.Mar.4th is monday
+        let wMStarts = refCal.startsOf(weekday: 2, from: from, count: 2)  // 2024.Mar.4th is monday
+        XCTAssertEqual(wMStarts[0], refCal.date(from: DateComponents(year: 2024, month: 3, day: 4, hour: 0, minute: 0, second: 0))!)
+        XCTAssertEqual(wMStarts[1], refCal.date(from: DateComponents(year: 2024, month: 2, day:26, hour: 0, minute: 0, second: 0))!)
+    }
+    
     func test_end() async throws {
         var refCal = Calendar.current
         refCal.timeZone = try XCTUnwrap(TimeZone(identifier: "JST"))
@@ -70,10 +88,29 @@ final class Calendar_StartEndDate_Tests: XCTestCase {
         // note: special treatment is needed for weekday handling
         let wSEnd = refCal.endOf(weekday: 1, from: from) // 2024.Jan.12th is friday, Jan.14th is sunday
         XCTAssertEqual(wSEnd, refCal.date(from: DateComponents(year: 2024, month: 1, day: 14, hour: 23, minute: 59, second: 59))!)
-        //let wMStart = refCal.start(of: from, matching: .init(hour: 0, minute: 0, second: 0, weekday: 2)) // 2024.Mar.4th is monday
         let wMEnd = refCal.endOf(weekday: 2, from: from) // 2024.Jan.12th is friday, Jan.15th is Monday
         XCTAssertEqual(wMEnd, refCal.date(from: DateComponents(year: 2024, month: 1, day: 15, hour: 23, minute: 59, second: 59))!)
         let wFEnd = refCal.endOf(weekday: 6, from: from) // 2024.Jan.12th is friday
         XCTAssertEqual(wFEnd, refCal.date(from: DateComponents(year: 2024, month: 1, day: 12, hour: 23, minute: 59, second: 59))!)
+    }
+    
+    func test_ends() async throws {
+        var refCal = Calendar.current
+        refCal.timeZone = try XCTUnwrap(TimeZone(identifier: "JST"))
+        
+        let from = refCal.date(from: DateComponents(year: 2024, month: 1, day: 12, hour: 9, minute: 45, second: 15))!
+        XCTAssertNotNil(from)
+
+        // note: special treatment is needed for weekday handling
+        let wSEnds = refCal.endsOf(weekday: 1, from: from, count: 2) // 2024.Jan.12th is friday, Jan.14th is sunday
+        XCTAssertEqual(wSEnds[0], refCal.date(from: DateComponents(year: 2024, month: 1, day: 14, hour: 23, minute: 59, second: 59))!)
+        XCTAssertEqual(wSEnds[1], refCal.date(from: DateComponents(year: 2024, month: 1, day: 21, hour: 23, minute: 59, second: 59))!)
+        let wMEnds = refCal.endsOf(weekday: 2, from: from, count: 2) // 2024.Jan.12th is friday, Jan.15th is Monday
+        XCTAssertEqual(wMEnds[0], refCal.date(from: DateComponents(year: 2024, month: 1, day: 15, hour: 23, minute: 59, second: 59))!)
+        XCTAssertEqual(wMEnds[1], refCal.date(from: DateComponents(year: 2024, month: 1, day: 22, hour: 23, minute: 59, second: 59))!)
+        let wFEnds = refCal.endsOf(weekday: 6, from: from, count: 2) // 2024.Jan.12th is friday
+        XCTAssertEqual(wFEnds[0], refCal.date(from: DateComponents(year: 2024, month: 1, day: 12, hour: 23, minute: 59, second: 59))!)
+        XCTAssertEqual(wFEnds[1], refCal.date(from: DateComponents(year: 2024, month: 1, day: 19, hour: 23, minute: 59, second: 59))!)
+
     }
 }
