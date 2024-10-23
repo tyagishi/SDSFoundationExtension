@@ -20,5 +20,9 @@ final class Duration_init_Tests: XCTestCase {
         let days = Duration.days(3)
         XCTAssertEqual(days.components.seconds, 24*60*60*3)
         XCTAssertEqual(days.components.attoseconds, 0)
+
+        let weeks = Duration.weeks(3)
+        XCTAssertEqual(weeks.components.seconds, 7*24*60*60*3)
+        XCTAssertEqual(weeks.components.attoseconds, 0)
     }
 }
