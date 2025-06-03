@@ -7,11 +7,14 @@
 
 import Foundation
 
+/// repeat frequency
 public enum DateRepeatFrequency: String, RawRepresentable, Codable, CaseIterable, Sendable {
+    case daily
     case monthly, biMonthly, quarterly, twiceAYear, yearly
 
     var inMonth: Int {
         switch self {
+        case .daily:       return 0 // does not work for .daily
         case .monthly:
             return 1
         case .biMonthly:
@@ -25,6 +28,8 @@ public enum DateRepeatFrequency: String, RawRepresentable, Codable, CaseIterable
         }
     }
 }
+
+/// date adjustment during date repating, note: for .daily, only noAdjustment works
 public enum DateRepeatAdjustment: String, RawRepresentable, Codable, CaseIterable, Sendable {
     case noAdjustment, nextWorkingDay, prevWorkingDay, endOfMonth
 }
@@ -44,6 +49,9 @@ extension Calendar {
         case .twiceAYear, .quarterly, .biMonthly, .monthly:
             matchComponent = DateComponents(day: startDateComp.day!,
                                             hour: startDateComp.hour!, minute: startDateComp.minute!,
+                                            second: startDateComp.second!)
+        case .daily:
+            matchComponent = DateComponents(hour: startDateComp.hour!, minute: startDateComp.minute!,
                                             second: startDateComp.second!)
         }
         
@@ -105,6 +113,14 @@ extension Calendar {
                     }
                 }
                 currentDate = nextDate
+            }
+        case .daily:
+            Calendar.current.enumerateDates(startingAfter: startDate,
+                                            matching: matchComponent,
+                                            matchingPolicy: .strict) { result, _, stop in
+                guard let date = result else { return }
+                if endDate < date { stop = true; return }
+                retDates.append(date)
             }
         }
         

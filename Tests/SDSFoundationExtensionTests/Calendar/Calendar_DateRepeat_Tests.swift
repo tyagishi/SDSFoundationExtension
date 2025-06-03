@@ -299,4 +299,29 @@ final class Calendar_DateRepeat_Tests: XCTestCase {
         XCTAssertEqual(dec.day, 31)
         XCTAssertEqual(jan.day, 31)
     }
+    
+    func test_repeatDates_daily() async throws {
+        let sut = Calendar.current
+        let startDate = Calendar.current.date(from: DateComponents(year: 2023, month: 2, day: 27, hour: 10, minute: 0, second: 0))!
+        let endDate = Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 3, hour: 10, minute: 0, second: 0))!
+        
+        // note: 2/27,28,3/1,2,3
+        
+        let repeatDates = sut.repeatDates(from: startDate, to: endDate, frequency: .daily, adjustment: .noAdjustment)
+        XCTAssertEqual(repeatDates.count, 5)
+        XCTAssertEqual(repeatDates.map({Calendar.current.dateComponents(in: .current, from: $0)}).filter({$0.hour != 10}).count, 0)
+        XCTAssertEqual(repeatDates.map({Calendar.current.dateComponents(in: .current, from: $0)}).filter({$0.minute != 0}).count, 0)
+        XCTAssertEqual(repeatDates.map({Calendar.current.dateComponents(in: .current, from: $0)}).filter({$0.second != 0}).count, 0)
+        
+        let feb27 = Calendar.current.dateComponents(in: .current, from: repeatDates[0])
+        let feb28 = Calendar.current.dateComponents(in: .current, from: repeatDates[1])
+        let mar01 = Calendar.current.dateComponents(in: .current, from: repeatDates[2])
+        let mar02 = Calendar.current.dateComponents(in: .current, from: repeatDates[3])
+        let mar03 = Calendar.current.dateComponents(in: .current, from: repeatDates[4])
+        XCTAssertEqual(feb27.day, 27)
+        XCTAssertEqual(feb28.day, 28)
+        XCTAssertEqual(mar01.day, 01)
+        XCTAssertEqual(mar02.day, 02)
+        XCTAssertEqual(mar03.day, 03)
+    }
 }
