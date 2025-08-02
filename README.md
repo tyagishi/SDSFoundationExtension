@@ -1,6 +1,15 @@
 # SDSFoundationExtension
 extensions for Foundation
 
+## ScheduledPublisher
+timer which starts at spcified date, then repeats (iff necessary)
+```
+Timer.schedulePublisher(firstAt: Calendar.date(2025,1,1,hour:9,minute:0,second:0), repeatDuration: .minutes(30))
+.sink({ _ 
+    // every 30 min alarm it starts from 2025.Jan.1st 9:00:00am
+}).store(in: &cancellables)
+```
+
 ## DurationStyleDayHourMinute
 show duration like "?days ??:??:??"
 ```
