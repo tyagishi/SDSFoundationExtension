@@ -17,3 +17,12 @@ let duration = Duration(secondsComponent: Int64(60.0*60.0*24.0*4.5), attoseconds
 XCTAssertEqual(duration.formatted(DurationStyleDayHourMinute()), "4days 12:00:00")
 ```
 
+## Bundle.versionBuildString
+retrieve app version and build number
+
+```
+if let (ver,build) = Bundle.versionBuildString {
+    Text("version: \(ver) build: \(build)")
+}
+```
+
