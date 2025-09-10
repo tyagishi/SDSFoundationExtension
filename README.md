@@ -10,6 +10,23 @@ Timer.schedulePublisher(firstAt: Calendar.date(2025,1,1,hour:9,minute:0,second:0
 }).store(in: &cancellables)
 ```
 
+## Duration.init
+### from seconds
+attoseconds part will be calced automatically
+```
+extension Duration {
+  public init(seconds value: Double)
+}
+```
+
+### from two Dates
+init from diff between two dates
+```
+extension Duration {
+    public init(from fromDate: Date, to toDate: Date)
+}
+```
+
 ## DurationStyleDayHourMinute
 show duration like "?days ??:??:??"
 ```
