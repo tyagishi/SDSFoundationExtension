@@ -25,4 +25,9 @@ final class Duration_init_Tests: XCTestCase {
         XCTAssertEqual(weeks.components.seconds, 7*24*60*60*3)
         XCTAssertEqual(weeks.components.attoseconds, 0)
     }
+    
+    func test_timeInterval() async throws {
+        let sut = Duration(seconds: 10.5)
+        XCTAssertEqual(sut.timeInterval, 10.5)
+    }
 }
