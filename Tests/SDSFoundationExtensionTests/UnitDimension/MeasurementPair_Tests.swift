@@ -10,7 +10,7 @@ import XCTest
 @testable import SDSFoundationExtension
 
 @MainActor
-final class DimensionPair_Tests: XCTestCase {
+final class MeasurementPair_Tests: XCTestCase {
     let tableSpoonML = 0.0147868 * 1000
     let serveSugarDensity = 0.6
 
