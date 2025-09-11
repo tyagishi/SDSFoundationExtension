@@ -1,6 +1,15 @@
 # SDSFoundationExtension
 extensions for Foundation
 
+## Measurement Pair
+In case conversion rule is known, we can use 2 measurement together with convenient conversion
+
+note: 
+ basically measurement is sotred with given measurement/unit.
+ if requested, converted another side measurement will be provided.
+ need to pass UnitConverter to define the relation between baseMeasurement and altMeasurement
+ (if requested) another side measurement is given with its base unit. you can convert to your unit with Measurement functionality
+
 ## ScheduledPublisher
 timer which starts at spcified date, then repeats (iff necessary)
 ```
