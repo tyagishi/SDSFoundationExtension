@@ -46,6 +46,7 @@ final class DurationStyleDayHourMinute_Tests: XCTestCase {
         //XCTAssertEqual(duration.formatted(.time(pattern: .hourMinuteSecond)), "108:00:00")
         XCTAssertEqual(duration.formatted(Duration.FormatStyle.init(unitStyle: .noCare)), "4days 12:00:00")
         XCTAssertEqual(duration.formatted(Duration.FormatStyle.init(unitStyle: .omitSeconds)), "4days 12:00")
+        XCTAssertEqual(duration.formatted(.omitSeconds), "4days 12:00")
     }
     
 }

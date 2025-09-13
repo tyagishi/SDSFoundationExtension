@@ -126,5 +126,9 @@ extension FormatStyle where Self == DurationStyleDayHourMinute {
 
 @available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *)
 extension FormatStyle where Self == Duration.FormatStyle {
-    public static var dayHourMinute: Duration.FormatStyle { .init() }
+    public static var noCare: Duration.FormatStyle { .init(unitStyle: .noCare) }
+    public static var omitDaysIfPossible: Duration.FormatStyle { .init(unitStyle: .omitDaysIfPossible) }
+    public static var omitHoursAboveIfPossible: Duration.FormatStyle { .init(unitStyle: .omitHoursAboveIfPossible) }
+    public static var omitMinutesAboveIfPossible: Duration.FormatStyle { .init(unitStyle: .omitMinutesAboveIfPossible) }
+    public static var omitSeconds: Duration.FormatStyle { .init(unitStyle: .omitSeconds) }
 }
