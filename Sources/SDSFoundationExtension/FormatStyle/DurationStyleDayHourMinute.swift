@@ -24,6 +24,7 @@ extension Duration {
             case omitDaysIfPossible
             case omitHoursAboveIfPossible
             case omitMinutesAboveIfPossible
+            case omitSeconds
             
             var omitDays: Bool {
                 switch self {
@@ -87,7 +88,8 @@ extension Duration {
             case .hours: return (style.omitHours == true) && (omit(nums, .days, style) == true) && (nums.hours == 0)
             case .minutes:
                 return (style.omitMinutes == true) && (omit(nums, .hours, style) == true) && (nums.minutes == 0)
-            case .seconds: return false
+            case .seconds:
+                return (style == .omitSeconds)
             }
         }
     }

@@ -40,4 +40,12 @@ final class DurationStyleDayHourMinute_Tests: XCTestCase {
         XCTAssertEqual(duration.formatted(Duration.FormatStyle.init(unitStyle: .omitHoursAboveIfPossible)), "18:14")
     }
 
+    func test_NewDurationFormatStyle_OmitSeconds() throws {
+        let duration = Duration(secondsComponent: Int64(60.0*60.0*24.0*4.5), attosecondsComponent: 0)
+
+        //XCTAssertEqual(duration.formatted(.time(pattern: .hourMinuteSecond)), "108:00:00")
+        XCTAssertEqual(duration.formatted(Duration.FormatStyle.init(unitStyle: .noCare)), "4days 12:00:00")
+        XCTAssertEqual(duration.formatted(Duration.FormatStyle.init(unitStyle: .omitSeconds)), "4days 12:00")
+    }
+    
 }
