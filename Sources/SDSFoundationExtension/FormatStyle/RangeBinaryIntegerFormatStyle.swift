@@ -58,7 +58,6 @@ extension Range where Bound: BinaryInteger {
                     return "\(lower)..<\(upper)"
                 }
             }
-            
         }
     }
 }
