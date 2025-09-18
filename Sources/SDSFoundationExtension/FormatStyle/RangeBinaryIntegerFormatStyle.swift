@@ -24,10 +24,10 @@ extension Range where Bound: BinaryInteger {
         let upperFormatStyle: IntegerFormatStyle<Bound>
         let showWithCloseSection: Bool
 
-        init(showWithCloseSection: Bool = false,
-             type: ExpressionType = .minus,
-             lowerFormatStyle: IntegerFormatStyle<Bound> = IntegerFormatStyle(),
-             upperFormatStyle: IntegerFormatStyle<Bound> = IntegerFormatStyle() ) {
+        public init(showWithCloseSection: Bool = false,
+                    type: ExpressionType = .minus,
+                    lowerFormatStyle: IntegerFormatStyle<Bound> = IntegerFormatStyle(),
+                    upperFormatStyle: IntegerFormatStyle<Bound> = IntegerFormatStyle() ) {
             self.showWithCloseSection = showWithCloseSection
             self.type = type
             self.lowerFormatStyle = lowerFormatStyle
