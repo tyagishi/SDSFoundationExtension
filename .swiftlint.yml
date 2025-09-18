@@ -7,8 +7,8 @@ excluded:
 analyzer_rules:
   - unused_declaration
   - unused_import
-opt_in_rules:
-#  - all
+# opt_in_rules:
+#   - all
 disabled_rules:
   - anonymous_argument_in_multiline_closure
   - anyobject_protocol
@@ -40,11 +40,13 @@ disabled_rules:
   - multiline_literal_brackets
   - multiline_parameters
   - multiline_parameters_brackets
+  - nesting
+  - non_optional_string_data_conversion
   - no_extension_access_modifier
   - no_fallthrough_only
   - no_grouping_extension
   - no_magic_numbers
-#  - one_declaration_per_file
+  - one_declaration_per_file
   - prefer_nimble
   - prefer_self_in_static_references
   - prefixed_toplevel_constant
@@ -104,12 +106,12 @@ large_tuple:
 #     - SwiftSyntax+SwiftLint.swift
 #     - TestHelpers.swift
 
-#balanced_xctest_lifecycle: &unit_test_configuration
-#  test_parent_classes:
-#    - SwiftLintTestCase
-#    - XCTestCase
-#empty_xctest_method: *unit_test_configuration
-#single_test_class: *unit_test_configuration
+# balanced_xctest_lifecycle: &unit_test_configuration
+#   test_parent_classes:
+#     - SwiftLintTestCase
+#     - XCTestCase
+# empty_xctest_method: *unit_test_configuration
+# single_test_class: *unit_test_configuration
 
 function_body_length: 60
 type_body_length: 400
