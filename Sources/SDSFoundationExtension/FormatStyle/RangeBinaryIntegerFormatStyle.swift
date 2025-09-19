@@ -17,6 +17,32 @@ extension Range where Bound: BinaryInteger {
             case minus
             case math
             case swift
+            
+            public var typePrefix: String {
+                switch self {
+                case .minus:  return ""
+                case .math:   return "["
+                case .swift:  return ""
+                }
+            }
+            public func typeMiddle(close: Bool = false) -> String {
+                switch self {
+                case .minus:  return "-"
+                case .math:   return ","
+                case .swift:
+                    if close { return "..."}
+                    return "..<"
+                }
+            }
+            public func typePostfix(close: Bool = false) -> String {
+                switch self {
+                case .minus:  return ""
+                case .math:
+                    if close { return "]"}
+                    return ")"
+                case .swift:  return ""
+                }
+            }
         }
         let type: ExpressionType
         
@@ -35,29 +61,15 @@ extension Range where Bound: BinaryInteger {
         }
 
         public func format(_ value: FormatInput) -> FormatOutput {
-            let lower = value.lowerBound
-            let upper = value.upperBound
+            let (lowerValue, upperValue) = values(value)
 
-            switch type {
-            case .minus:
-                if showWithCloseSection {
-                    return lowerFormatStyle.format(lower) + "-" + upperFormatStyle.format(upper-1)
-                } else {
-                    return lowerFormatStyle.format(lower) + "-" + upperFormatStyle.format(upper)
-                }
-            case .math:
-                if showWithCloseSection {
-                    return "[" + lowerFormatStyle.format(lower) + "," + upperFormatStyle.format(upper-1) + "]"
-                } else {
-                    return "[" + lowerFormatStyle.format(lower) + "," + upperFormatStyle.format(upper) + ")"
-                }
-            case .swift:
-                if showWithCloseSection {
-                    return "\(lower)...\(upper-1)"
-                } else {
-                    return "\(lower)..<\(upper)"
-                }
-            }
+            return type.typePrefix + lowerFormatStyle.format(lowerValue) +
+            type.typeMiddle(close: showWithCloseSection) + upperFormatStyle.format(upperValue) + type.typePostfix(close: showWithCloseSection)
+        }
+        
+        func values(_ range: Range<Bound>) -> (Bound, Bound) {
+            if showWithCloseSection { return (range.lowerBound, range.upperBound-1) }
+            return (range.lowerBound, range.upperBound)
         }
     }
 }
