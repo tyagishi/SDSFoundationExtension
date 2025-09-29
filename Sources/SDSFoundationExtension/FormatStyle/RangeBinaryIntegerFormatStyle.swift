@@ -67,9 +67,16 @@ extension Range where Bound: BinaryInteger {
             type.typeMiddle(close: showWithCloseSection) + upperFormatStyle.format(upperValue) + type.typePostfix(close: showWithCloseSection)
         }
         
+        static var minus: FormatStyle { .init(type: .minus) }
+        static var math: FormatStyle { .init(type: .math) }
+        static var swift: FormatStyle { .init(type: .swift) }
+
         func values(_ range: Range<Bound>) -> (Bound, Bound) {
             if showWithCloseSection { return (range.lowerBound, range.upperBound-1) }
             return (range.lowerBound, range.upperBound)
         }
+    }
+    func formatted(_ formatStyle: Range<Bound>.FormatStyle) -> String {
+        formatStyle.format(self)
     }
 }
