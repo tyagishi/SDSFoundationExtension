@@ -28,4 +28,13 @@ final class Calendar_DateCreation_Tests: XCTestCase {
         XCTAssertEqual(start, d2024Jan1_000000)
         XCTAssertEqual(end, d2024Dec31_235959)
     }
+    
+    func test_Calendar_monthStartEnd() async throws {
+        let sut = Calendar.current
+
+        let refDate = sut.date(2024, 5, 3, hour: 9, minute: 12, second: 41)
+        let (start, end) = sut.monthStartEnd(refDate)
+        XCTAssertEqual(start, sut.date(2024, 5, 1, hour: 0, minute: 0, second: 0))
+        XCTAssertEqual(end, sut.date(2024, 5, 31, hour: 23, minute: 59, second: 59))
+    }
 }

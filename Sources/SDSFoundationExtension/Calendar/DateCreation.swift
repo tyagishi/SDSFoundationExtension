@@ -18,4 +18,15 @@ extension Calendar {
     public func yearRange(of year: Int) -> Range<Date> {
         date(year, 1)..<date(year+1,1)
     }
+    
+    public func monthStartEnd(_ ref: Date = Date()) -> (start: Date, end: Date) {
+        var dateComp = self.dateComponents([.year, .month], from: ref)
+        dateComp.day = 1
+        dateComp.hour = 0
+        dateComp.minute = 0
+        dateComp.second = 0
+        let start = date(from: dateComp)!
+        let end = self.date(byAdding: .month, value: 1, to: start)!.advanced(by: -1)
+        return (start, end)
+    }
 }
