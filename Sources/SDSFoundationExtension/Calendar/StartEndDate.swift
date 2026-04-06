@@ -114,6 +114,7 @@ extension Calendar {
     /// (2024/01/12, 9:45:15, .day) -> 2024/01/01, 00:00:00
     /// (2024/01/12, 9:45:15, .month) -> 2024/01/01, 00:00:00
     public func start(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
+        guard lastComp != .year else { fatalError("can not adjust along year. may be month is the unit you should use") }
         let comps = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let keepComps = lastComp.upperUnits
         guard !keepComps.isEmpty else { return nil }
@@ -160,8 +161,9 @@ extension Calendar {
     /// (2024/01/12, 9:45:15, .minute) -> 2024/01/12, 9:59:59
     /// (2024/01/12, 9:45:15, .hour) -> 2024/01/12, 23:59:59
     /// (2024/01/12, 9:45:15, .day) -> 2024/01/31, 23:59:59
-    /// (2024/01/12, 9:45:15, .month) -> 2024/12/31, 23:59:59
+    /// (2024/01/12, 9:45:15, .month) -> 2024/01/31, 23:59:59
     public func end(of date: Date, adjustGranurarity lastComp: Calendar.Component) -> Date? {
+        guard lastComp != .year else { fatalError("can not adjust along year. may be month is the unit you should use") }
         let comps = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let keepComps = lastComp.upperUnits
         guard !keepComps.isEmpty else { return nil }
