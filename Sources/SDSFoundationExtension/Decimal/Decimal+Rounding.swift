@@ -19,7 +19,7 @@ extension NSDecimalNumberHandler {
                   raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     }
     public static let plain = NSDecimalNumberHandler(roundingMode: .plain, scale: 0)
-    public static let up = NSDecimalNumberHandler(roundingMode: .up, scale: 0)
+    public static let up = NSDecimalNumberHandler(roundingMode: .up, scale: 0) // swiftlint:disable:this identifier_name
     public static let down = NSDecimalNumberHandler(roundingMode: .down, scale: 0)
     public static let bankers = NSDecimalNumberHandler(roundingMode: .bankers, scale: 0)
 }
