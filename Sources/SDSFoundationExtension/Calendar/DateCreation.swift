@@ -29,4 +29,8 @@ extension Calendar {
         let end = self.date(byAdding: .month, value: 1, to: start)!.advanced(by: -1)
         return (start, end)
     }
+    // for convenience
+    public func year(_ date: Date) -> Int {
+        return self.dateComponents([.year], from: date).year!
+    }
 }
